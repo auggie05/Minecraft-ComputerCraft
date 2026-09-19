@@ -3,7 +3,7 @@ local side = args[1]
 
 if side == nil
 then print("Error: noArgument. Please add the side you are requesting methods from.")
-else
+else 
     for i,v in ipairs(peripheral.getMethods(side))
         do print(i.."| "..v)
     end
