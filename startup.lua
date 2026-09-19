@@ -1,1 +1,0 @@
-shell.run("cmd/password.lua")
