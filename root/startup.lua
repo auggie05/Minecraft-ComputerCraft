@@ -1,1 +1,1 @@
-shell.run("password.lua")
+shell.run("cmd/password.lua")
