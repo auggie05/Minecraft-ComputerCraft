@@ -6,7 +6,7 @@ local args = { ... }
 local reply = args[1]
 
 local modem = peripheral.find("modem") or error("No modem attached", 0)
-modem.open(reply)
+modem.open(tonumber(reply))
 
 local event, side, channel, replyChannel, message, distance
 repeat
