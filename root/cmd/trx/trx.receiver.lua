@@ -7,10 +7,11 @@ local reply = args[1]
 
 local modem = peripheral.find("modem") or error("No modem attached", 0)
 modem.open(tonumber(reply))
+print("Receiving on "..reply)
 
-local event, side, channel, replyChannel, message, distance
-repeat
- event, side, channel, replyChannel, message, distance = os.pullEvent("modem_message")
-until channel == reply
-
-print("Received a message:" .. tostring(message))
+while true do
+    local event, side, channel, replyChannel, message, distance = os.pullEvent("modem_message")
+    print(("Message received on side %s on channel %d (reply to %d) from %f blocks away with message %s"):format(
+        side, channel, replyChannel, distance, tostring(message)
+    ))
+end
