@@ -3,6 +3,14 @@
 --will put computer into receiver mode. cannot run any other programs while this is happening.
 
 local args = { ... }
-local channel = args[1]
+local reply = args[1]
 
+local modem = peripheral.find("modem") or error("No modem attached", 0)
+modem.open(reply)
 
+local event, side, channel, replyChannel, message, distance
+repeat
+ event, side, channel, replyChannel, message, distance = os.pullEvent("modem_message")
+until channel == reply
+
+print("Received a message:" .. tostring(message))
