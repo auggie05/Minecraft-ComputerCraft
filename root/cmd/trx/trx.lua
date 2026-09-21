@@ -88,9 +88,9 @@ then
 elseif arg1=="close"
 then
     local modem = peripheral.find("modem") or error("No modem attached", 0)
-    modem.close(arg2)
+    modem.close(tonumber(arg2))
 
-    if modem.isOpen(arg2) ~= true
+    if modem.isOpen(tonumber(arg2)) ~= true
     then print("Closed channel.")
     end
 end
