@@ -68,17 +68,33 @@ then
     printHelp(arg2)
 elseif arg1=="transmit" or arg1=="send"
 then
+    if arg2==nil
+    then
+        term.setTextColor(colors.red)
+        print("Error: Missing arguments.")
+        print("Use 'trx help' to view help.")
+    else
     modem.transmit(tonumber(arg2), tonumber(arg3), arg4)
+    end
 elseif arg1=="receiver" or arg1=="receive"
 then
-    modem.open(tonumber(arg2))
-    print("Receiving on "..arg2..". Crtl+T to terminate.")
+    if arg2==nil
+    then 
+        term.setTextColor(colors.red)
+        print("Error: Missing arguments.")
+        print("Use 'trx help' to view help.")
+    else
+        modem.open(tonumber(arg2))
+        term.clear()
+        term.setCursorPos(1,1)
+        print("Receiving on "..arg2..". Crtl+T to terminate.")
 
-    while true do
-        local event, side, channel, replyChannel, message, distance = os.pullEvent("modem_message")
-        print(("%d: %s"):format(replyChannel, tostring(message)
-        ))
-    end
+        while true do
+            local event, side, channel, replyChannel, message, distance = os.pullEvent("modem_message")
+            print(("%d: %s"):format(replyChannel, tostring(message)
+            ))
+        end
+end
 elseif arg1=="closeAll" or arg1=="closeall"
 then
     modem.closeAll()
