@@ -1,7 +1,10 @@
 local args = { ... }
 local arg1 = args[1]
 local arg2 = args[2]
+local arg3 = args[3]
+local arg4 = args[4]
 
+--Help Documentation
 function printHelp(command)
     if command == nil
     then
@@ -50,14 +53,45 @@ function printHelp(command)
     elseif command == "closeAll"
     then
         print("--Help--")
-        print("Usage: trx closeAll channel")
+        print("Usage: trx closeAll")
         print("")
         print("Closes all open channels.")
         print("--------")
     end
 end
+--End Help Documentation
 
+--Commands
 if arg1=="-h" or arg1=="-help" or arg1=="help"
 then 
     printHelp(arg2)
+elseif arg1=="transmit" or arg1=="send"
+then
+    local modem = peripheral.find("modem") or error("No modem attached", 0)
+    modem.transmit(tonumber(arg2), tonumber(arg3), arg4)
+elseif arg1=="receiver" or arg1=="receive"
+then
+    local modem = peripheral.find("modem") or error("No modem attached", 0)
+    modem.open(tonumber(arg2))
+    print("Receiving on "..arg2..". Crtl+T to terminate.")
+
+    while true do
+        local event, side, channel, replyChannel, message, distance = os.pullEvent("modem_message")
+        print(("%d: %s"):format(replyChannel, tostring(message)
+        ))
+    end
+elseif arg1=="closeAll" or arg1=="closeall"
+then
+    local modem = peripheral.find("modem") or error("No modem attached", 0)
+    modem.closeAll()
+    print("Closed all channels.")
+elseif arg1=="close"
+then
+    local modem = peripheral.find("modem") or error("No modem attached", 0)
+    modem.close(arg2)
+
+    if modem.isOpen(arg2) ~= true
+    then print("Closed channel.")
+    end
 end
+--End Commands
