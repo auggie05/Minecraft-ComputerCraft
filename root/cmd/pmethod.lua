@@ -1,6 +1,10 @@
 local args = { ... }
 local side = args[1]
 
+--local completion = require "cc.shell.completion"
+
+--shell.setCompletionFunction("pmethod.lua", completion.build({completion.choice, {"top","bottom","left","right","front","back"}}))
+
 if side == nil
 then 
     term.setTextColor(colors.red)
