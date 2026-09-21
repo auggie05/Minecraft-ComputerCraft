@@ -3,9 +3,10 @@ local arg1 = args[1]
 local arg2 = args[2]
 local arg3 = args[3]
 local arg4 = args[4]
+local modem = peripheral.find("modem") or error("No modem attached", 0)
 
 --Help Documentation
-function printHelp(command)
+local function printHelp(command)
     if command == nil
     then
         print("--Help--")
@@ -67,11 +68,9 @@ then
     printHelp(arg2)
 elseif arg1=="transmit" or arg1=="send"
 then
-    local modem = peripheral.find("modem") or error("No modem attached", 0)
     modem.transmit(tonumber(arg2), tonumber(arg3), arg4)
 elseif arg1=="receiver" or arg1=="receive"
 then
-    local modem = peripheral.find("modem") or error("No modem attached", 0)
     modem.open(tonumber(arg2))
     print("Receiving on "..arg2..". Crtl+T to terminate.")
 
@@ -82,14 +81,11 @@ then
     end
 elseif arg1=="closeAll" or arg1=="closeall"
 then
-    local modem = peripheral.find("modem") or error("No modem attached", 0)
     modem.closeAll()
     print("Closed all channels.")
 elseif arg1=="close"
 then
-    local modem = peripheral.find("modem") or error("No modem attached", 0)
     modem.close(tonumber(arg2))
-
     if modem.isOpen(tonumber(arg2)) ~= true
     then print("Closed channel.")
     end
